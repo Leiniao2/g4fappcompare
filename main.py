@@ -3,11 +3,13 @@ import requests
 
 app = Flask(__name__)
 
-# Example GPT4Free providers
+# List of GPT4Free providers with their endpoints
 PROVIDERS = {
-    "ProviderA": "https://provider-a.com/api/chat",
-    "ProviderB": "https://provider-b.com/api/chat",
-    "ProviderC": "https://provider-c.com/api/chat"
+    "You.com": "https://api.you.com/v1/chat",
+    "HuggingChat": "https://huggingface.co/api/chat",
+    "Phind": "https://api.phind.com/v1/chat",
+    "DeepAI": "https://api.deepai.org/v1/chat",
+    "OpenAssistant": "https://api.open-assistant.io/v1/chat"
 }
 
 @app.route("/")
@@ -36,6 +38,7 @@ def compare():
                 "prompt": message,
                 "max_tokens": 150
             }
+            # Normally you'd set headers or API keys if needed
             res = requests.post(url, json=payload, timeout=30)
             res.raise_for_status()
             ai_text = res.json().get("text", "No response")
